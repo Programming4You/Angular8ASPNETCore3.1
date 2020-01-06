@@ -99,13 +99,9 @@ namespace WebAPI.Repository
         {
             try
             {
-                long? orderID = 0;
                 //Order table
                 if (order.OrderID == null)
                 {
-                    var maxOrderID = _context.Order.Max(x => x.OrderID);
-                    orderID = maxOrderID == null ? 1 : maxOrderID + 1;
-
                     Order ord = new Order();
                     ord.OrderNo = order.OrderNo;
                     ord.CustomerID = order.CustomerID;
@@ -122,6 +118,8 @@ namespace WebAPI.Repository
                 }
 
                 //OrderItems table
+                var maxOrderID = _context.Order.Max(x => x.OrderID);
+
                 var maxOrderItemID = _context.OrderItem.Max(x => x.OrderItemID);
                 var orderItemID = maxOrderItemID == null ? 1 : maxOrderItemID + 1;
 
@@ -129,7 +127,7 @@ namespace WebAPI.Repository
                 {
                     if (item.OrderItemID == null)
                     {
-                        item.OrderID = orderID;
+                        item.OrderID = maxOrderID;
                         _context.OrderItem.Add(item);
                         await _context.SaveChangesAsync();
                     }
