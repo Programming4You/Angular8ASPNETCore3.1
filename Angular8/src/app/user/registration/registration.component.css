@@ -1,0 +1,10 @@
+button[type=submit].btn{
+    border-radius: 20px; 
+    background-color: #04c582;
+    color: #fff;
+}
+
+.center_div{
+    margin: 0 auto;
+    width:50% 
+}

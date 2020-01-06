@@ -1,0 +1,23 @@
+.container span {
+    height: 50px; 
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.container {
+    margin:auto; 
+    display:table;
+}
+
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  #footerContainer {
+    margin-top: 5%;
+  }

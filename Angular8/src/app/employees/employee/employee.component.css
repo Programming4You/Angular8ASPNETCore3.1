@@ -1,0 +1,41 @@
+div.container {
+    margin: 0px 40px;
+}
+
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+form.normal-form {
+    margin: 10px;
+}
+
+.controles-container {
+    width: 100%;
+    padding: 5%;
+}
+
+.controles-container > * {
+    width: 100%;
+}
+
+.add-bottom-padding {
+    padding-bottom: 10px;
+}
+
+/* radio-group */
+mat-radio-group mat-radio-button {
+    margin-left: 15px;
+}
+
+.button-row button {
+    margin: 5px;
+}
+
+
+.btn-dialog-close{
+    width: 45px;
+    min-width: 0px !important;
+    height: 40px;
+    padding: 0px !important;
+}

@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-9">
+        <table class="table table-hover table-bordered mt-5 mb-5">
+            <thead class="thead-light">
+                <th class="bg-info text-light left">#Order No.</th>
+                <th class="bg-info text-light left">Customer</th>
+                <th class="bg-info text-light center">Payment Method</th>
+                <th class="bg-info text-light right">Grand Total</th>
+                <th class="bg-light center">
+                    <a class="btn btn-outline-success" routerLink="/home/order"><i class="fa fa-plus-square"></i> Create New</a>
+                </th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of orderList">
+                  <th class="selectedPointer" (click)="openForEdit(item.orderID)">{{ item.orderNo }}</th>
+                  <td class="left">{{ item.customerName }}</td>
+                  <td class="center">{{ item.pMethod == '1' ? 'Cash' : 'Card' }}</td>
+                  <td class="right">{{ item.gTotal }}</td>
+                  <td class="center">
+                    <a class="btn text-danger selectedPointer" (click)="onOrderDelete(item.orderID)"><i class="fa fa-trash fa-lg"></i></a>
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+          <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+        </div>
+    </div>
+    <div class="col-md-3" *ngIf="userDetails">
+      <div class="card-body">
+        <h5 class="card-title font-weight-light">User Details</h5>
+       <ul class="list-group">
+         <li class="list-group-item">Username: {{ userDetails.userName }}</li>
+         <li class="list-group-item">Name: {{ userDetails.fullName }}</li>
+         <li class="list-group-item">Email: {{ userDetails.email }}</li>
+       </ul>
+      </div>
+    </div>
+</div>
+

@@ -1,0 +1,64 @@
+<div class="search-div">
+ <button mat-raised-button color="primary" (click)="onCreate()">
+   <mat-icon>add</mat-icon>Create
+ </button>
+ <mat-form-field class="search-form-field ml-2" floatLabel="never">
+     <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+     <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+         <mat-icon>close</mat-icon>
+     </button>
+ </mat-form-field>
+ <button mat-raised-button class="btn btn-info mt-3 float-right"
+ (click)="exporter.exportTable('xlsx', {fileName:'EmployeeListReport', sheet: 'Sheet1', Props: {Author: 'Milan'}})">Export as Excel</button>
+</div>
+<div class="mat-elevation-z8 mb-5" #ELEMENT>
+ <mat-table matTableExporter [dataSource]="listData" #exporter="matTableExporter" [hiddenColumns]="[5,6]" matSort #element>
+     <ng-container matColumnDef="FullName">
+         <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
+         <mat-cell *matCellDef="let element">{{element.fullName}}</mat-cell>
+     </ng-container>
+     <ng-container matColumnDef="Email">
+         <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+         <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+     </ng-container>
+     <ng-container matColumnDef="Mobile">
+         <mat-header-cell *matHeaderCellDef mat-sort-header>Mobile</mat-header-cell>
+         <mat-cell *matCellDef="let element">{{element.mobile}}</mat-cell>
+     </ng-container>
+     <ng-container matColumnDef="City">
+         <mat-header-cell *matHeaderCellDef mat-sort-header>City</mat-header-cell>
+         <mat-cell *matCellDef="let element">{{element.city}}</mat-cell>
+     </ng-container>
+     <ng-container matColumnDef="Gender">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Gender</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.gender}}</mat-cell>
+        </ng-container>
+     <ng-container matColumnDef="DepartmentName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Department</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.department.departmentName}}</mat-cell>
+    </ng-container>
+     <ng-container matColumnDef="Actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="onEdit(element, element.employeeID)"><mat-icon>launch</mat-icon></button>
+            <button mat-icon-button color="warn" (click)="onDelete(element.employeeID)"><mat-icon>delete_outline</mat-icon></button>
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="loading">
+       <mat-footer-cell *matFooterCellDef colspan="6">
+          Loading data...
+       </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+            No data.
+        </mat-footer-cell>
+     </ng-container>
+     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+     <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
+     <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null || listData?.data.length != 0}"></mat-footer-row>
+     <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData==null && listData?.data.length == 0)}"></mat-footer-row>
+ </mat-table>
+ <mat-paginator [pageSizeOptions]="[5,10,25,100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+</div> 
+
