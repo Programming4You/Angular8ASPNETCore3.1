@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.Repository;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI
 {
@@ -67,6 +67,13 @@ namespace WebAPI
 
             services.AddRazorPages();
 
+            // Enable the use of an [Authorize("Bearer")] attribute on methods and classes to protect.
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
+                    .RequireAuthenticatedUser().Build());
+            });
 
             services.Configure<IdentityOptions>(options =>
             {
